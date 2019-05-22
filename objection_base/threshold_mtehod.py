@@ -1,7 +1,6 @@
 import numpy as np
 import cv2
 
-
 if __name__ == '__main__':
     # 1、读取图片
     img = cv2.imread('anwser_sheet.jpg')

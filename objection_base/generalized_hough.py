@@ -1,4 +1,5 @@
 # -*- coding=utf-8 -*-
+__author__ = 'wshaow'
 
 import numpy as np
 import cv2.cv2 as cv
@@ -24,26 +25,6 @@ def buildRefTable(img):
     for (i, j), value in np.ndenumerate(img):
         if value:
             table[gradient[i, j]].append((img_center[0] - i, img_center[1] - j))
-    # def findAngleDistance(x1, y1):
-    #     x2, y2 = img_center[0], img_center[1]
-    #     r = [(x2-x1), (y2-y1)]
-    #     if (x2-x1 != 0):
-    #         return [int(np.rad2deg(np.arctan((y2-y1)/(x2-x1)))), r]
-    #     else:
-    #         return [0, 0]
-
-    # filter_size = 3
-    # for x in range(img.shape[0]-(filter_size-1)):
-    #     for y in range(img.shape[1]-(filter_size-1)):
-    #         if (img[x, y] != 0):
-    #             theta, r = findAngleDistance(x, y)
-    #             if (r != 0):
-    #                 table[theta].append(r)
-
-
-
-    # for i in range(len(table)):
-    #     table[i].pop(0)
 
     return table
 
@@ -72,20 +53,6 @@ def matchTable(im, table):
                 if accum_i < acc.shape[0] and accum_j < acc.shape[1]:
                     acc[int(accum_i), int(accum_j)] += 1
 
-    # def findGradient(x, y):
-    #     if (x != 0):
-    #         return int(np.rad2deg(np.arctan(y/x)))
-    #     else:
-    #         return 0
-    #
-    # for x in range(1, im.shape[0]):
-    #     for y in range(im.shape[1]):
-    #
-    #         if im[x, y] != 0:  # boundary point
-    #             theta = findGradient(x, y)
-    #             vectors = table[theta]
-    #             for vector in vectors:
-    #                 acc[int(vector[0]+x), int(vector[1]+y)] += 1
     return acc
 
 
