@@ -1,5 +1,5 @@
 from torch import nn
-from utils import *
+from .utils import *
 import torch.nn.functional as F
 from math import sqrt
 from itertools import product as product
@@ -402,16 +402,16 @@ class SSD300(nn.Module):
         for k, fmap in enumerate(fmaps):
             for i in range(fmap_dims[fmap]):
                 for j in range(fmap_dims[fmap]):
-                    cx = (j + 0.5) / fmap_dims[fmap]
+                    cx = (j + 0.5) / fmap_dims[fmap]  # 得到中心位置的相对的值
                     cy = (i + 0.5) / fmap_dims[fmap]
 
-                    for ratio in aspect_ratios[fmap]:
+                    for ratio in aspect_ratios[fmap]:  # 这里就是在求每个特征图对应的GT的位置和长宽
                         prior_boxes.append([cx, cy, obj_scales[fmap] * sqrt(ratio), obj_scales[fmap] / sqrt(ratio)])
 
                         # For an aspect ratio of 1, use an additional prior whose scale is the geometric mean of the
                         # scale of the current feature map and the scale of the next feature map
                         if ratio == 1.:
-                            try:
+                            try:  # 求额外的情况，就是前后两个obj_scales相乘 开根
                                 additional_scale = sqrt(obj_scales[fmap] * obj_scales[fmaps[k + 1]])
                             # For the last feature map, there is no "next" feature map
                             except IndexError:
