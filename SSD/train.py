@@ -2,9 +2,9 @@ import time
 import torch.backends.cudnn as cudnn
 import torch.optim
 import torch.utils.data
-from model import SSD300, MultiBoxLoss
-from datasets import PascalVOCDataset
-from utils import *
+from .model import SSD300, MultiBoxLoss
+from .datasets import PascalVOCDataset
+from .utils import *
 
 # Data parameters
 data_folder = './'  # folder with data files
