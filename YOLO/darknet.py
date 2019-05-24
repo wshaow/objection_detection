@@ -5,7 +5,7 @@ import torch.nn as nn
 import torch.nn.functional as F 
 from torch.autograd import Variable
 import numpy as np
-from util import * 
+from .util import *
 
 
 
@@ -86,7 +86,7 @@ def create_modules(blocks):
                 batch_normalize = 0
                 bias = True
         
-            filters= int(x["filters"])
+            filters=int(x["filters"])
             padding = int(x["pad"])
             kernel_size = int(x["size"])
             stride = int(x["stride"])
@@ -115,7 +115,7 @@ def create_modules(blocks):
             #We use Bilinear2dUpsampling
         elif (x["type"] == "upsample"):
             stride = int(x["stride"])
-            upsample = nn.Upsample(scale_factor = 2, mode = "nearest")
+            upsample = nn.Upsample(scale_factor=2, mode="nearest")
             module.add_module("upsample_{}".format(index), upsample)
                 
         #If it is a route layer
